@@ -18,11 +18,14 @@ class App extends Component {
   }
 
   addNewHabit(newHabit) {
-    this.setState({habits: newHabit});
+    if (newHabit.name !== '' && newHabit.updateFreq !== '' && newHabit.validatingMethod !== '') {
+      this.setState({habits: newHabit}, console.log(newHabit, "new habit saved"));
+    }
+
   }
 
   render() {
-    console.log("habits", this.state.habits);
+    console.log("habits in APP render", this.state.habits);
     return (
       <div>
         <h1> Habit Tracker </h1>

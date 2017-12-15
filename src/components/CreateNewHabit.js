@@ -5,11 +5,19 @@ class CreateNewHabit extends Component {
     super(props);
 
     this.state = {
-      textFieldValue: ''
+      name: '',
+      validatingMethod: '',
+      updateFreq: '',
+      newHabit: {name: '', updateFreq: '', validatingMethod: ''},
+      nameSubmitted: false,
+      updateFreqSubmitted: false,
+      validatingMethodSubmitted: false
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.uploadNewHabit = this.uploadNewHabit.bind(this);
   }
 
   handleChange(event) {
@@ -17,21 +25,57 @@ class CreateNewHabit extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    const newHabit = {name: this.state.textFieldValue}
-    this.props.addNewHabit(newHabit);
-    this.setState({textFieldValue: ''});
+    this.setState({
+      name: this.state.textFieldValue,
+      newHabit: {name: this.state.textFieldValue, updateFreq: this.state.updateFreq, validatingMethod: this.state.validatingMethod},
+      textFieldValue: '',
+      nameSubmitted: true
+    }, console.log("got name"));
+  }
+
+  handleClick(event) {
+    if (event.target.id === "every-day" || event.target.id === "every-week") {
+      this.setState({
+        updateFreq: event.target.id,
+        newHabit: {name: this.state.name, updateFreq: event.target.id, validatingMethod: this.state.validatingMethod},
+        updateFreqSubmitted: true
+      }, console.log("got updateFreq"));
+    }
+    else if (event.target.id === "checkmarks" || event.target.id === "percentages") {
+      this.setState({
+        validatingMethod: event.target.id,
+        newHabit: {name: this.state.name, updateFreq: this.state.updateFreq, validatingMethod: event.target.id},
+        validatingMethodSubmitted: true
+      }, console.log("got validatingMethod"));   
+    }
+  }
+
+  uploadNewHabit() {
+    this.props.addNewHabit(this.state.newHabit);
+    this.setState({newHabit: {}});
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
         <h3>Create new habit</h3>
-        <div id="nameField">
+        <div id="name-field">
           <p>habit:</p>
           <input onChange={this.handleChange}></input>
+          <input id="submit-button" type="submit" value="save name" onClick={this.handleSubmit}></input>
         </div>
-      </form>
+        <div id="update-freq-field">
+          <p>Frequency of updates</p>
+          <button id="every-day" onClick={this.handleClick}>Every Day</button>
+          <button id="every-week" onClick={this.handleClick}>Every Week</button>
+        </div>
+        <div id="success-validating-method-field">
+          <p>Success validating method</p>
+          <button id="checkmarks" onClick={this.handleClick}>CheckMarks</button>
+          <button id="percentages" onClick={this.handleClick}>Percentages</button>
+        </div>
+        <button onClick={this.uploadNewHabit}>upload</button>
+      </div>
     );
   }
 }
