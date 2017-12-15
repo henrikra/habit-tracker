@@ -9,17 +9,26 @@ class App extends Component {
     super(props);
 
     this.state = {
+      habits: {},
+
 
     };
+
+    this.addNewHabit = this.addNewHabit.bind(this);
+  }
+
+  addNewHabit(newHabit) {
+    this.setState({habits: newHabit});
   }
 
   render() {
+    console.log("habits", this.state.habits);
     return (
       <div>
         <h1> Habit Tracker </h1>
-        <CurrentHabits />
+        <CurrentHabits habits={this.state.habits}/>
         <RecentActivity />
-        <CreateNewHabit />
+        <CreateNewHabit addNewHabit={this.addNewHabit}/>
       </div>
 
     );
