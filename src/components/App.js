@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import CreateNewHabit from './CreateNewHabit';
+import CurrentHabits from './CurrentHabits';
+import RecentActivity from './RecentActivity';
 
 
 class App extends Component {
@@ -13,7 +16,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        HABIT TRACKER
+        <h1> Habit Tracker </h1>
+        <CurrentHabits />
+        <RecentActivity />
+        <CreateNewHabit />
       </div>
 
     );
