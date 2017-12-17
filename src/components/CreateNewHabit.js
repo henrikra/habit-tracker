@@ -12,12 +12,13 @@ class CreateNewHabit extends Component {
       nameSubmitted: false,
       updateFreqSubmitted: false,
       validatingMethodSubmitted: false
-    }
+    }    
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.uploadNewHabit = this.uploadNewHabit.bind(this);
+    this.addNewHabit = this.addNewHabit.bind(this);
   }
 
   handleChange(event) {
@@ -51,8 +52,17 @@ class CreateNewHabit extends Component {
   }
 
   uploadNewHabit() {
-    this.props.addNewHabit(this.state.newHabit);
+    this.addNewHabit(this.state.newHabit);
     this.setState({newHabit: {}});
+  }
+
+  addNewHabit(newHabit) {
+    if (newHabit.name !== '' && newHabit.updateFreq !== '' && newHabit.validatingMethod !== '') {
+      const habits = JSON.parse(localStorage.getItem('habits'));
+      habits.push(newHabit);
+
+      localStorage.setItem('habits', JSON.stringify(habits));
+    }
   }
 
   render() {
