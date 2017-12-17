@@ -1,25 +1,19 @@
 import React, {Component} from 'react';
 
-class CurrentHabits extends Component {
-  constructor(props) {
-    super(props);
+function CurrentHabits() {
 
-  }
-
-  getHabit() {
-
-  }
-
-  render() {    
-    return (
-      <div>
-        <h3>Habit: {JSON.parse(localStorage.getItem('habits'))[0].name}</h3>
-        <p>updateFreq: {JSON.parse(localStorage.getItem('habits'))[0].updateFreq}</p>
-        <p>validatingMethod: {JSON.parse(localStorage.getItem('habits'))[0].validatingMethod}</p>
-      </div>
-    );
-  }
-
+  const habitsList = JSON.parse(localStorage.getItem('habits')).map((key) =>
+    <div>
+      <h3>Habit: {key.name}</h3>
+      <p>updateFreq: {key.updateFreq}</p>
+      <p>validatingMethod: {key.validatingMethod}</p>
+    </div>
+  );
+  return (
+    <div>
+      {habitsList}
+    </div>
+  );
 }
 
 export default CurrentHabits;
