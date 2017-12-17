@@ -16,7 +16,8 @@ class CreateNewHabit extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleValidatingMethodClick = this.handleValidatingMethodClick.bind(this);
+    this.handleUpdateFreqClick = this.handleUpdateFreqClick.bind(this);
     this.uploadNewHabit = this.uploadNewHabit.bind(this);
     this.addNewHabit = this.addNewHabit.bind(this);
   }
@@ -34,21 +35,20 @@ class CreateNewHabit extends Component {
     }, console.log("got name"));
   }
 
-  handleClick(event) {
-    if (event.target.id === "every-day" || event.target.id === "every-week") {
-      this.setState({
-        updateFreq: event.target.id,
-        newHabit: {name: this.state.name, updateFreq: event.target.id, validatingMethod: this.state.validatingMethod},
-        updateFreqSubmitted: true
-      }, console.log("got updateFreq"));
-    }
-    else if (event.target.id === "checkmarks" || event.target.id === "percentages") {
-      this.setState({
-        validatingMethod: event.target.id,
-        newHabit: {name: this.state.name, updateFreq: this.state.updateFreq, validatingMethod: event.target.id},
-        validatingMethodSubmitted: true
-      }, console.log("got validatingMethod"));   
-    }
+  handleUpdateFreqClick(event) {
+    this.setState({
+      updateFreq: event.target.id,
+      newHabit: {name: this.state.name, updateFreq: event.target.id, validatingMethod: this.state.validatingMethod},
+      updateFreqSubmitted: true
+    }, console.log("got updateFreq"));
+  }
+
+  handleValidatingMethodClick(event) {
+    this.setState({
+      validatingMethod: event.target.id,
+      newHabit: {name: this.state.name, updateFreq: this.state.updateFreq, validatingMethod: event.target.id},
+      validatingMethodSubmitted: true
+    }, console.log("got validatingMethod")); 
   }
 
   uploadNewHabit() {
@@ -79,13 +79,13 @@ class CreateNewHabit extends Component {
         </div>
         <div id="update-freq-field">
           <p>Frequency of updates</p>
-          <button id="every-day" onClick={this.handleClick}>Every Day</button>
-          <button id="every-week" onClick={this.handleClick}>Every Week</button>
+          <button id="every-day" onClick={this.handleUpdateFreqClick}>Every Day</button>
+          <button id="every-week" onClick={this.handleUpdateFreqClick}>Every Week</button>
         </div>
         <div id="success-validating-method-field">
           <p>Success validating method</p>
-          <button id="checkmarks" onClick={this.handleClick}>CheckMarks</button>
-          <button id="percentages" onClick={this.handleClick}>Percentages</button>
+          <button id="checkmarks" onClick={this.handleValidatingMethodClick}>CheckMarks</button>
+          <button id="percentages" onClick={this.handleValidatingMethodClick}>Percentages</button>
         </div>
         <button onClick={this.uploadNewHabit}>upload</button>
       </div>
