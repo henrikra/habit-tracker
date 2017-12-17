@@ -11,8 +11,9 @@ class CreateNewHabit extends Component {
       newHabit: {name: '', updateFreq: '', validatingMethod: ''},
       nameSubmitted: false,
       updateFreqSubmitted: false,
-      validatingMethodSubmitted: false
-    }    
+      validatingMethodSubmitted: false,
+      textFieldValue: '',
+    }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
