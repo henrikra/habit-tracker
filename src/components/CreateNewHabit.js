@@ -57,6 +57,9 @@ class CreateNewHabit extends Component {
   }
 
   addNewHabit(newHabit) {
+    if (!localStorage.getItem('habits')) {
+      localStorage.setItem('habits', '[]');
+    }
     if (newHabit.name !== '' && newHabit.updateFreq !== '' && newHabit.validatingMethod !== '') {
       const habits = JSON.parse(localStorage.getItem('habits'));
       habits.push(newHabit);
