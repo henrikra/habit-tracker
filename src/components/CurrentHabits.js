@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import apiClient from '../apiClient';
 
 class CurrentHabits extends Component {
   constructor(props) {
@@ -6,6 +7,16 @@ class CurrentHabits extends Component {
 
     this.removeHabit = this.removeHabit.bind(this);
   }
+
+  componentDidMount() {
+    apiClient.getItem('habits').then(habits => {
+      console.log('habits', habits);
+    })
+    .catch(error => {
+      console.log('error', error)
+    });
+  }
+  
 
   removeHabit(removeHabit) {
     const filtederHabits = JSON.parse(localStorage.getItem("habits")).filter(habit => habit.name !== removeHabit.name);
