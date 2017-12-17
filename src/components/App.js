@@ -20,7 +20,6 @@ class App extends Component {
           </ul>
 
           <hr/>
-
           <Route path="/currentHabits" component={CurrentHabits} />
           <Route path="/createNewHabit" component={CreateNewHabit} />
         </div>
